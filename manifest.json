@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Enough Social: YouTube/Twitter Timer",
+  "version": "1.0.0",
+  "description": "Track time spent on YouTube/Twitter/X and get reminded after 90 minutes. Simple and effective.",
+  "permissions": ["tabs", "storage", "alarms", "idle", "windows"],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "Enough Social - Click to view remaining time",
+    "default_popup": "popup.html"
+  }
+}

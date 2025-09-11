@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Enough Social</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    html,body { margin:0; padding:0; font-family:system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:#111; color:#f5f5f5; }
+    .wrap { padding:18px; display:flex; flex-direction:column; gap:14px; }
+    h1 { font-size:18px; margin:0; line-height:1.3; }
+    .muted { color:#bbb; font-size:13px; }
+    .row { display:flex; gap:10px; }
+    button { flex:1; padding:10px 12px; border:0; border-radius:10px; background:#2a2a2a; color:#f5f5f5; cursor:pointer; }
+    button:hover { background:#333; }
+    .primary { background:#2563eb; color:white; }
+    .primary:hover { background:#1d4ed8; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>It's enough Twitter/YouTube for today</h1>
+    <div class="muted" id="stats">Calculating...</div>
+    <div class="row">
+      <button id="snooze">Remind me in 15 minutes</button>
+      <button id="close">Close YouTube/Twitter</button>
+    </div>
+    <div class="row">
+      <button class="primary" id="ok">OK</button>
+    </div>
+  </div>
+  <script src="warn.js"></script>
+</body>
+</html>
