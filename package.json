@@ -1,0 +1,25 @@
+{
+  "name": "enough-social-extension",
+  "version": "1.0.0",
+  "description": "Chrome extension to track time spent on YouTube/Twitter/X",
+  "scripts": {
+    "build": "zip -r enough-social-extension.zip . -x '*.DS_Store' '*.git*' 'build.sh' '*.md' 'node_modules/*' '*.log' 'package.json'",
+    "build:clean": "rm -f enough-social-extension.zip && npm run build",
+    "dev": "echo 'Load the extension folder as unpacked in Chrome for development'",
+    "package": "npm run build:clean && echo '✅ Extension packaged: enough-social-extension.zip'"
+  },
+  "keywords": [
+    "chrome-extension",
+    "time-tracking",
+    "productivity",
+    "youtube",
+    "twitter",
+    "social-media"
+  ],
+  "author": "Tim-ru",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Tim-ru/Enough-social.git"
+  }
+}

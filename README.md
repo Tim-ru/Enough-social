@@ -46,18 +46,40 @@ cd reminder-widget
 ## Settings
 - Default limit is 90 minutes. Can be changed in `DEFAULT_LIMIT_MIN` in `background.js`
 
+## Development
+
+### Building the Extension
+```bash
+# Using npm (recommended)
+npm run build        # Create ZIP file
+npm run build:clean  # Remove old ZIP and create new one
+npm run package      # Clean build with success message
+
+# Using bash script
+./build.sh
+
+# Manual command
+zip -r enough-social-extension.zip . -x "*.DS_Store" "*.git*" "build.sh" "*.md" "node_modules/*" "*.log" "package.json"
+```
+
+### Development Workflow
+1. Make changes to extension files
+2. Test by reloading unpacked extension in Chrome
+3. Run `npm run build` to create ZIP for distribution
+4. Upload to Chrome Web Store or share ZIP file
+
 ## Deployment
 
 ### Chrome Web Store
-1. Create a ZIP file with all extension files
+1. Run `npm run build` to create ZIP file
 2. Go to [Chrome Web Store Developer Dashboard](https://chrome.google.com/webstore/devconsole/)
-3. Upload the ZIP file
-4. Fill in store listing details
+3. Upload the `enough-social-extension.zip` file
+4. Fill in store listing details and privacy practices
 5. Submit for review
 
 ### Manual Distribution
 - Share the project folder for users to load as unpacked extension
-- Or create a ZIP file for distribution
+- Or share the `enough-social-extension.zip` file created by build script
 
 ## Security
 - Extension doesn't require host_permissions and doesn't inject content scripts
