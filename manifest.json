@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Enough Social: YouTube/Twitter Timer",
   "version": "1.0.0",
-  "description": "Track active time spent on YouTube/Twitter/X and get reminded after 90 minutes. Helps manage screen time with smart tracking and daily limits.",
+  "description": "Track time on YouTube/X and get reminded after 90 minutes. Smart tracking with daily limits.",
   "permissions": ["tabs", "storage", "alarms", "idle", "windows"],
   "background": {
     "service_worker": "background.js",
