@@ -1,0 +1,70 @@
+# Cursor Rules для работы с агентной командой
+
+## Принципы работы
+- Следуй структуре агентов из .agents/ директории
+- Все важные решения документируй в SHARED.md с префиксом роли
+- Применяй принципы SOLID в разработке
+- Проверяй гейты качества перед коммитом
+
+## Роли и их мандаты
+- **PRODUCT_OWNER**: AC, требования, приоритизация
+- **TECH_LEAD**: техническая стратегия, code review, менторинг
+- **ARCHITECT**: архитектурные решения, ADR, паттерны
+- **MANIFEST_SPECIALIST**: manifest.json, permissions, CSP, Service Worker
+- **IMPLEMENTER**: реализация функций, SOLID принципы, тесты
+- **SECURITY_AUDITOR**: аудит безопасности, уязвимости, зависимости
+- **QA_ENGINEER**: тест-планы, покрытие, результаты тестирования
+- **CROSS_BROWSER_TESTER**: совместимость Chrome/Firefox/Edge
+- **DEVOPS**: CI/CD, сборка, деплой, мониторинг
+- **DOCS_WRITER**: README, документация, инструкции
+- **STORE_PUBLISHER**: публикация в магазинах, store guidelines
+- **RELEASE_MANAGER**: релизы, версионирование, changelog
+
+## Теги для SHARED.md
+- [DECISION] - архитектурные решения
+- [RISK] - выявленные риски
+- [QUESTION] - открытые вопросы
+- [BLOCKER] - блокеры для других ролей
+- [DONE] - завершенные задачи
+- [LINK] - ссылки на PR, коммиты, файлы
+- [ADR] - архитектурные решения
+- [MANIFEST] - изменения в manifest.json
+- [CROSS_BROWSER] - результаты cross-browser тестирования
+- [STORE] - статус публикации в магазинах
+
+## Гейты качества для браузерных расширений
+- Manifest валидность (manifest.json без ошибок)
+- Минимальные permissions (принцип least privilege)
+- Cross-browser совместимость
+- Store guidelines соответствие
+- Безопасность (CSP, валидация данных)
+- Производительность (не блокирует UI)
+- Тесты (unit, integration, e2e)
+
+## Workflow
+1. Начать с TASK.md - четко определить задачу
+2. PRODUCT_OWNER создает AC в SHARED.md
+3. TECH_LEAD создает технический план
+4. ARCHITECT документирует ADR
+5. MANIFEST_SPECIALIST проверяет manifest.json
+6. IMPLEMENTER реализует функциональность
+7. SECURITY_AUDITOR проверяет безопасность
+8. QA_ENGINEER создает тесты
+9. CROSS_BROWSER_TESTER проверяет совместимость
+10. DEVOPS настраивает CI/CD
+11. DOCS_WRITER обновляет документацию
+12. STORE_PUBLISHER готовит к публикации
+13. RELEASE_MANAGER финализирует релиз
+
+## Коммиты
+- Используй Conventional Commits
+- Короткие, понятные сообщения
+- Ссылки на задачи в TASK.md
+- Указывай роль в commit message: [ROLE] описание
+
+## Code Review
+- Проверяй соответствие SOLID принципам
+- Убедись в наличии тестов
+- Проверь безопасность
+- Проверь производительность
+- Проверь документацию

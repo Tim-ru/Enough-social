@@ -4,48 +4,330 @@
   <meta charset="utf-8">
   <title>Enough Social</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="design-system.css">
   <style>
-    html,body { margin:0; padding:0; font-family:system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:#111; color:#f5f5f5; }
-    .wrap { padding:16px; display:flex; flex-direction:column; gap:12px; min-width:280px; }
-    h1 { font-size:16px; margin:0; line-height:1.3; color:#f5f5f5; }
-    .stats { background:#1a1a1a; padding:12px; border-radius:8px; border:1px solid #333; }
-    .time-display { font-size:24px; font-weight:bold; margin:8px 0; }
-    .time-remaining { color:#10b981; }
-    .time-exceeded { color:#ef4444; }
-    .progress-bar { width:100%; height:8px; background:#333; border-radius:4px; overflow:hidden; margin:8px 0; }
-    .progress-fill { height:100%; background:linear-gradient(90deg, #10b981, #f59e0b, #ef4444); transition:width 0.3s ease; }
-    .details { font-size:12px; color:#bbb; }
-    .actions { display:flex; gap:8px; }
-    button { flex:1; padding:8px 12px; border:0; border-radius:6px; background:#2a2a2a; color:#f5f5f5; cursor:pointer; font-size:12px; }
-    button:hover { background:#333; }
-    .primary { background:#2563eb; color:white; }
-    .primary:hover { background:#1d4ed8; }
-    .danger { background:#dc2626; color:white; }
-    .danger:hover { background:#b91c1c; }
+    /* Popup specific styles */
+    .popup-container {
+      width: 360px;
+      min-height: 400px;
+      background: var(--color-background);
+      overflow: hidden;
+    }
+    
+    .header {
+      background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover));
+      padding: var(--space-6);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+      50% { transform: translate(-50%, -50%) rotate(180deg); }
+    }
+    
+    .header h1 {
+      color: white;
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      margin: 0;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .header .subtitle {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: var(--font-size-sm);
+      margin-top: var(--space-1);
+      position: relative;
+      z-index: 1;
+    }
+    
+    .content {
+      padding: var(--space-6);
+    }
+    
+    .stats-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      margin-bottom: var(--space-6);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .stats-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--color-success), var(--color-warning), var(--color-danger));
+    }
+    
+    .time-display {
+      font-size: var(--font-size-3xl);
+      font-weight: var(--font-weight-bold);
+      text-align: center;
+      margin: var(--space-4) 0;
+      transition: all var(--transition-normal);
+    }
+    
+    .time-remaining { color: var(--color-success); }
+    .time-exceeded { color: var(--color-danger); }
+    .time-warning { color: var(--color-warning); }
+    
+    .progress-container {
+      margin: var(--space-4) 0;
+    }
+    
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-2);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-muted);
+    }
+    
+    .details {
+      text-align: center;
+      font-size: var(--font-size-sm);
+      color: var(--color-text-muted);
+      margin-top: var(--space-4);
+    }
+    
+    .actions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-3);
+      margin-bottom: var(--space-4);
+    }
+    
+    .actions-single {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-3);
+    }
+    
+    .settings-section {
+      margin-top: var(--space-6);
+      animation: slideIn var(--transition-normal) ease-out;
+    }
+    
+    .settings-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+    }
+    
+    .settings-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-6);
+    }
+    
+    .settings-icon {
+      width: 24px;
+      height: 24px;
+      background: var(--color-primary);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: var(--font-size-sm);
+    }
+    
+    .input-group {
+      margin-bottom: var(--space-4);
+    }
+    
+    .input-label {
+      display: block;
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text);
+      margin-bottom: var(--space-2);
+    }
+    
+    .validation-message {
+      font-size: var(--font-size-xs);
+      color: var(--color-danger);
+      margin-top: var(--space-1);
+      display: none;
+    }
+    
+    .validation-message.show {
+      display: block;
+      animation: fadeIn var(--transition-fast) ease-out;
+    }
+    
+    .success-message {
+      background: var(--color-success);
+      color: white;
+      padding: var(--space-3);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      text-align: center;
+      margin-top: var(--space-3);
+      display: none;
+    }
+    
+    .success-message.show {
+      display: block;
+      animation: fadeIn var(--transition-fast) ease-out;
+    }
+    
+    .icon {
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      line-height: 20px;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 400px) {
+      .popup-container {
+        width: 320px;
+      }
+      
+      .actions-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <h1>Enough Social Timer</h1>
+  <div class="popup-container animate-fade-in">
+    <!-- Header -->
+    <div class="header">
+      <h1>⏰ Enough Social</h1>
+      <div class="subtitle">Smart Time Tracking</div>
+    </div>
     
-    <div class="stats">
-      <div class="time-display" id="timeDisplay">Loading...</div>
-      <div class="progress-bar">
-        <div class="progress-fill" id="progressFill"></div>
+    <!-- Main Content -->
+    <div class="content">
+      <!-- Stats Card -->
+      <div class="stats-card">
+        <div class="time-display" id="timeDisplay">Loading...</div>
+        
+        <div class="progress-container">
+          <div class="progress-label">
+            <span>Progress</span>
+            <span id="progressPercent">0%</span>
+          </div>
+          <div class="progress">
+            <div class="progress-bar" id="progressFill"></div>
+          </div>
+        </div>
+        
+        <div class="details" id="details">Calculating...</div>
       </div>
-      <div class="details" id="details">Calculating...</div>
-    </div>
-    
-    <div class="actions">
-      <button id="resetBtn">Reset Today</button>
-      <button class="primary" id="settingsBtn">Settings</button>
-    </div>
-    
-    <div class="actions">
-      <button class="danger" id="closeSitesBtn">Close Sites</button>
+      
+      <!-- Action Buttons -->
+      <div class="actions-grid">
+        <button class="btn btn-secondary" id="resetBtn">
+          <span class="icon">🔄</span>
+          Reset Today
+        </button>
+        <button class="btn btn-primary" id="settingsBtn">
+          <span class="icon">⚙️</span>
+          Settings
+        </button>
+      </div>
+      
+      <!-- Settings Section -->
+      <div class="settings-section" id="settingsSection" style="display: none;">
+        <div class="settings-card">
+          <div class="settings-header">
+            <div class="settings-icon">⚙️</div>
+            <h3 style="margin: 0; font-size: var(--font-size-lg);">Time Limit Settings</h3>
+          </div>
+          
+          <div class="input-group">
+            <label for="timeLimitInput" class="input-label">
+              Daily time limit (minutes)
+            </label>
+            <input 
+              type="number" 
+              id="timeLimitInput" 
+              class="input"
+              min="5" 
+              max="480" 
+              step="1"
+              placeholder="Enter minutes (5-480)"
+            />
+            <div id="validationMessage" class="validation-message"></div>
+          </div>
+          
+          <div class="actions-grid">
+            <button class="btn btn-primary" id="saveSettingsBtn">
+              <span class="icon">💾</span>
+              Save
+            </button>
+            <button class="btn btn-secondary" id="resetSettingsBtn">
+              <span class="icon">↩️</span>
+              Reset
+            </button>
+          </div>
+          
+          <div class="actions-single">
+            <button class="btn btn-ghost" id="closeSettingsBtn">
+              <span class="icon">✕</span>
+              Close Settings
+            </button>
+          </div>
+          
+          <div id="successMessage" class="success-message">
+            ✅ Settings saved successfully!
+          </div>
+        </div>
+      </div>
+      
+      <!-- Danger Zone -->
+      <div class="actions-single">
+        <button class="btn btn-danger" id="closeSitesBtn">
+          <span class="icon">🚫</span>
+          Close All Sites
+        </button>
+      </div>
+      
+      <!-- Debug Zone (for testing) -->
+      <div class="actions-single">
+        <button class="btn btn-secondary" id="testWarnBtn">
+          <span class="icon">⚠️</span>
+          Test Warning Popup
+        </button>
+        <button class="btn btn-secondary" id="resetReminderBtn">
+          <span class="icon">🔄</span>
+          Reset Reminder
+        </button>
+        <button class="btn btn-secondary" id="testTickBtn">
+          <span class="icon">⏰</span>
+          Test Minute Tick
+        </button>
+      </div>
     </div>
   </div>
   
+  <script src="settings-manager.js"></script>
   <script src="popup.js"></script>
 </body>
 </html>

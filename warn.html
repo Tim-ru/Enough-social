@@ -2,32 +2,226 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Enough Social</title>
+  <title>Enough Social - Time Limit Reached</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="design-system.css">
   <style>
-    html,body { margin:0; padding:0; font-family:system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:#111; color:#f5f5f5; }
-    .wrap { padding:18px; display:flex; flex-direction:column; gap:14px; }
-    h1 { font-size:18px; margin:0; line-height:1.3; }
-    .muted { color:#bbb; font-size:13px; }
-    .row { display:flex; gap:10px; }
-    button { flex:1; padding:10px 12px; border:0; border-radius:10px; background:#2a2a2a; color:#f5f5f5; cursor:pointer; }
-    button:hover { background:#333; }
-    .primary { background:#2563eb; color:white; }
-    .primary:hover { background:#1d4ed8; }
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--color-background);
+      overflow: hidden;
+    }
+    
+    .warn-container {
+      width: 600px;
+      height: 450px;
+      background: var(--color-background);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .warn-header {
+      background: linear-gradient(135deg, var(--color-danger), #dc2626);
+      padding: var(--space-6);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .warn-header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+      50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.1; }
+    }
+    
+    .warn-icon {
+      font-size: 2.5rem;
+      margin-bottom: var(--space-2);
+      position: relative;
+      z-index: 1;
+      animation: bounce 1s ease-in-out infinite;
+    }
+    
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+    
+    .warn-title {
+      color: white;
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      margin: 0;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .warn-content {
+      padding: var(--space-6);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+    
+    .warn-message {
+      font-size: var(--font-size-base);
+      color: var(--color-text);
+      margin-bottom: var(--space-4);
+      line-height: var(--line-height-relaxed);
+    }
+    
+    .warn-stats {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      margin-bottom: var(--space-6);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-muted);
+    }
+    
+    .warn-actions {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+    
+    .warn-actions-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-3);
+    }
+    
+    .warn-actions-single {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+    
+    .btn-warn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      padding: var(--space-3) var(--space-4);
+      font-family: inherit;
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      border: 1px solid transparent;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      text-decoration: none;
+      white-space: nowrap;
+      user-select: none;
+      min-height: 2.5rem;
+    }
+    
+    .btn-warn:focus {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+    
+    .btn-warn-primary {
+      background-color: var(--color-primary);
+      color: white;
+      border-color: var(--color-primary);
+    }
+    
+    .btn-warn-primary:hover {
+      background-color: var(--color-primary-hover);
+      border-color: var(--color-primary-hover);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .btn-warn-secondary {
+      background-color: var(--color-surface);
+      color: var(--color-text);
+      border-color: var(--color-border);
+    }
+    
+    .btn-warn-secondary:hover {
+      background-color: var(--color-surface-hover);
+      border-color: var(--color-border-light);
+      transform: translateY(-1px);
+    }
+    
+    .btn-warn-danger {
+      background-color: var(--color-danger);
+      color: white;
+      border-color: var(--color-danger);
+    }
+    
+    .btn-warn-danger:hover {
+      background-color: var(--color-danger-hover);
+      border-color: var(--color-danger-hover);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .warn-icon-small {
+      width: 16px;
+      height: 16px;
+      display: inline-block;
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <h1>It's enough Twitter/YouTube for today</h1>
-    <div class="muted" id="stats">Calculating...</div>
-    <div class="row">
-      <button id="snooze">Remind me in 15 minutes</button>
-      <button id="close">Close YouTube/Twitter</button>
+  <div class="warn-container animate-fade-in">
+    <!-- Header -->
+    <div class="warn-header">
+      <div class="warn-icon">⚠️</div>
+      <h1 class="warn-title">Time Limit Reached!</h1>
     </div>
-    <div class="row">
-      <button class="primary" id="ok">OK</button>
+    
+    <!-- Content -->
+    <div class="warn-content">
+      <div class="warn-message">
+        You've reached your daily time limit for social media. Take a break and focus on what matters!
+      </div>
+      
+      <div class="warn-stats" id="stats">
+        Calculating your usage...
+      </div>
+      
+      <!-- Actions -->
+      <div class="warn-actions">
+        <div class="warn-actions-row">
+          <button class="btn-warn btn-warn-secondary" id="snooze">
+            <span class="warn-icon-small">⏰</span>
+            Remind in 15min
+          </button>
+          <button class="btn-warn btn-warn-danger" id="close">
+            <span class="warn-icon-small">🚫</span>
+            Close Sites
+          </button>
+        </div>
+        
+        <div class="warn-actions-single">
+          <button class="btn-warn btn-warn-primary" id="ok">
+            <span class="warn-icon-small">✅</span>
+            I Understand
+          </button>
+        </div>
+      </div>
     </div>
   </div>
+  
   <script src="warn.js"></script>
 </body>
 </html>

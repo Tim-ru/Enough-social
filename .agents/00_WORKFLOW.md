@@ -8,7 +8,7 @@
 - Не дублировать информацию. Если нужна деталь, делать ссылку на соответствующий файл.
 
 Хэндоффы
-- Порядок исполнения по умолчанию: PRODUCT_OWNER → TECH_LEAD → ARCHITECT → IMPLEMENTER → SECURITY_AUDITOR → QA_ENGINEER → DEVOPS → DOCS_WRITER → RELEASE_MANAGER.
+- Порядок исполнения по умолчанию: PRODUCT_OWNER → TECH_LEAD → ARCHITECT → MANIFEST_SPECIALIST → IMPLEMENTER → SECURITY_AUDITOR → QA_ENGINEER → CROSS_BROWSER_TESTER → DEVOPS → DOCS_WRITER → STORE_PUBLISHER → RELEASE_MANAGER.
 - Любая роль может инициировать обратный хэндофф, указав причину и конкретный запрос.
 
 Определение готовности
@@ -21,8 +21,11 @@
 Гейты качества
 - Архитектурная согласованность. Нет циклических зависимостей, нет утечек абстракций, соответствует принятым паттернам.
 - Безопасность. Нет уязвимостей класса inj, path traversal, небезопасной десериализации, секреты не в коде, зависимости проверены.
+- Manifest валидность. manifest.json без ошибок, минимальные permissions, CSP настроена корректно.
+- Cross-browser совместимость. Работает в Chrome, Firefox, Edge, API различия учтены.
+- Store guidelines. Соответствует требованиям Chrome Web Store, Firefox Add-ons, privacy policy актуальна.
 - Тесты. Покрытие ключевой логики юнитами, интеграционные happy path, как минимум один негативный сценарий.
-- Производительность. Нет очевидных N+1, неуместной синхронной блокировки, грубых аллокаций.
+- Производительность. Нет очевидных N+1, неуместной синхронной блокировки, грубых аллокаций, не блокирует UI.
 - DX. Чёткие инструкции запуска в README, make-скрипты, минимум команд для старта.
 - Обслуживаемость. Логи, хелсчеки, элементарные метрики.
 
@@ -32,4 +35,4 @@
 - Все изменения сопровождаются коротким коммит-месседжем по Conventional Commits.
 
 Теги в SHARED.md
-- [DECISION], [RISK], [QUESTION], [BLOCKER], [DONE], [LINK], [ADR].
+- [DECISION], [RISK], [QUESTION], [BLOCKER], [DONE], [LINK], [ADR], [MANIFEST], [CROSS_BROWSER], [STORE].
